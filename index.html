@@ -10,19 +10,16 @@
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
           rel="stylesheet"
   />
-
   <!-- 2) Bootstrap Icons -->
   <link
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
           rel="stylesheet"
   />
-
   <!-- 3) AOS CSS -->
   <link
           href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
           rel="stylesheet"
   />
-
   <!-- 4) Your custom styles -->
   <link rel="stylesheet" href="css/styles.css"/>
 </head>
@@ -43,10 +40,19 @@
         style="background: url('websitepic1.jpg') center/cover no-repeat;"
         data-aos="fade-in"
 >
-  <div class="d-inline-block bg-dark bg-opacity-50 p-4 rounded-3">
+  <div
+          class="hero-text-block d-inline-block p-4 rounded-3"
+          style="background-color: rgba(0,0,0,0.5);"
+  >
     <h1 class="display-3 fw-bold text-warning mb-2">Shaffer Card Exchange</h1>
     <p class="lead text-white mb-3">Premium sports cards — buy, sell, trade.</p>
     <a href="#about" class="btn btn-dark btn-lg">Learn More</a>
+  </div>
+  <!-- Scroll prompt -->
+  <div class="position-absolute bottom-0 w-100 text-center pb-4">
+      <span class="bg-dark bg-opacity-50 text-white px-3 py-1 rounded">
+        Scroll Below
+      </span>
   </div>
 </section>
 
@@ -69,6 +75,29 @@
                 class="img-fluid rounded shadow"
         />
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TOP CARDS HANDLED ===== -->
+<section id="topcards" class="py-5 bg-white" data-aos="fade-up">
+  <div class="container">
+    <h2 class="text-center mb-4">Top Cards Handled</h2>
+    <div
+            id="topCardsContainer"
+            class="top-cards-container"
+            style="
+          overflow-x: auto;
+          overflow-y: hidden;
+          touch-action: pan-x;
+          overscroll-behavior: contain;
+          white-space: nowrap;
+        "
+    >
+      <img src="gptott.png"   alt="Top Card 1" class="top-card"/>
+      <img src="kps.png"      alt="Top Card 2" class="top-card"/>
+      <img src="kptott.png"   alt="Top Card 3" class="top-card"/>
+      <img src="mall.png"     alt="Top Card 4" class="top-card"/>
     </div>
   </div>
 </section>
@@ -176,7 +205,7 @@
     <a href="https://www.ebay.com/str/shaffercardexchange" target="_blank" title="eBay Store">
       <i class="bi bi-shop fs-3"></i>
     </a>
-    <a href="https://twitter.com/shaffercardexc" target="_blank" title="X">
+    <a href="https://twitter.com/shaffercardexc" target="_blank" title="Twitter">
       <i class="bi bi-twitter fs-3"></i>
     </a>
     <a href="https://www.tiktok.com/@shaffercardexchange" target="_blank" title="TikTok">
@@ -185,98 +214,61 @@
   </div>
 </footer>
 
+<!-- Scripts -->
 <!-- Bootstrap Bundle JS -->
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         defer
 ></script>
 <!-- AOS JS -->
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<!-- after your <script src="…aos.js"></script> -->
-<script>
-  // Initial AOS setup for downward scroll
-  AOS.init({
-    once:   false,
-    mirror: true,
-    duration: 800,
-    offset: 150   // down-scroll: trigger when element is 150px from bottom
-  });
-
-  // Track last scroll position
-  let lastScrollY = window.scrollY;
-  let currentDir  = 'down';
-
-  // Throttle helper so we don't re-init on every pixel scrolled
-  function throttle(fn, limit = 200) {
-    let inThrottle;
-    return function() {
-      if (!inThrottle) {
-        fn.apply(this, arguments);
-        inThrottle = true;
-        setTimeout(() => (inThrottle = false), limit);
-      }
-    };
-  }
-
-  window.addEventListener('scroll', throttle(() => {
-    const y = window.scrollY;
-    const newDir = y < lastScrollY ? 'up' : 'down';
-    lastScrollY = y;
-
-    if (newDir !== currentDir) {
-      currentDir = newDir;
-
-      // Choose offset based on direction
-      const newOffset = (currentDir === 'up') ? 250 : 150;
-
-      // Re-init AOS only when offset changed
-      AOS.init({
-        once:   false,
-        mirror: true,
-        duration: 800,
-        offset: newOffset
-      });
-      AOS.refresh();
-    }
-  }));
-</script>
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        defer
-></script>
-<!-- AOS JS -->
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
-
-<!-- Your custom scripts -->
+<!-- Custom scripts -->
 <script defer>
-  // Wait until everything is parsed
   document.addEventListener('DOMContentLoaded', () => {
-    // Initialize AOS
-    AOS.init({
-      once:   false,
-      mirror: true,
-      duration: 800,
-      offset: 120
-    });
+    // 1) Initialize AOS
+    AOS.init({ once: false, mirror: true, duration: 800, offset: 150 });
 
-    // Auto-update the year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Theme toggle logic
+    // 2) Theme toggle
     const btn  = document.getElementById('themeToggle');
     const icon = btn.querySelector('i');
-
     btn.addEventListener('click', () => {
-      const isDark = document.body.classList.toggle('dark-mode');
+      const dark = document.body.classList.toggle('dark-mode');
+      icon.className = dark ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
+      btn.classList.toggle('btn-light', dark);
+      btn.classList.toggle('btn-secondary', !dark);
+    });
 
-      // Swap icon & button style
-      if (isDark) {
-        icon.className = 'bi bi-sun-fill';
-        btn.classList.replace('btn-secondary', 'btn-light');
-      } else {
-        icon.className = 'bi bi-moon-fill';
-        btn.classList.replace('btn-light', 'btn-secondary');
-      }
+    // 3) Top Cards: center if <=4, and expand section on hover
+    const section   = document.getElementById('topcards');
+    const container = document.getElementById('topCardsContainer');
+    const cards     = Array.from(container.children);
+
+    if (cards.length <= 4) {
+      container.classList.add('centered');
+    }
+
+    // Add hover listeners to expand the section
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        container.classList.add('expanded');
+      });
+      card.addEventListener('mouseleave', () => {
+        container.classList.remove('expanded');
+      });
+    });
+
+    // 4) Auto-update year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        console.log('hover in:', card);    // ← add this
+        section.classList.add('expanded');
+      });
+      card.addEventListener('mouseleave', () => {
+        console.log('hover out:', card);   // ← and this
+        section.classList.remove('expanded');
+      });
     });
   });
 </script>
