@@ -1,0 +1,59 @@
+/* Ensure modern default font & smooth scrolling */
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+/* Hero text shadow for readability */
+#hero h1,
+#hero p {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Card icons color */
+.card i {
+    color: #0d6efd; /* Bootstrap primary */
+}
+
+/* Form input focus state */
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Dark mode overrides */
+body.dark-mode {
+    background-color: #121212;
+    color:            #e0e0e0;
+}
+
+/* Invert hero text block background */
+body.dark-mode #hero .bg-dark {
+    background-color: rgba(255,255,255,0.2) !important;
+}
+
+/* Cards: dark background & borders */
+body.dark-mode .card {
+    background-color: #1f1f1f;
+    border-color:     #333;
+}
+
+/* Sections with light background */
+body.dark-mode .bg-light {
+    background-color: #1f1f1f !important;
+}
+
+/* Footer dark override */
+body.dark-mode footer {
+    background-color: #000 !important;
+}
+
+/* Ensure text remains light */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h5,
+body.dark-mode p,
+body.dark-mode .lead {
+    color: #e0e0e0 !important;
+}
